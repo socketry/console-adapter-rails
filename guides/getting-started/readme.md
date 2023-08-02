@@ -22,7 +22,7 @@ require_relative 'application'
 
 # Setup the console adapter:
 require 'console/adapter/rails'
-Console::Adaptor::Rails.apply
+Console::Adapter::Rails.apply!
 
 # Initialize the Rails application.
 Rails.application.initialize!
