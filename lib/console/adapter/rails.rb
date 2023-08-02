@@ -28,11 +28,11 @@ module Console
 				# - `method`: The HTTP method of the request.
 				# - `path`: The path of the request.
 				# - `status`: The HTTP status code of the response.
-				# - `view_runtime`: The time spent rendering views.
-				# - `db_runtime`: The time spent querying the database.
+				# - `view_runtime`: The time spent rendering views in milliseconds.
+				# - `db_runtime`: The time spent querying the database in milliseconds.
 				# - `location`: The redirect location if any.
 				# - `allocations`: The number of allocations performed.
-				# - `duration`: The total time spent processing the request.
+				# - `duration`: The total time spent processing the request in milliseconds.
 				def process_action(event)
 					payload = event.payload.dup
 					
