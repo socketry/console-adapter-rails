@@ -20,6 +20,4 @@ group :test do
 	
 	gem "sus"
 	gem "covered"
-	
-	gem "rails"
 end
