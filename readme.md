@@ -2,11 +2,15 @@
 
 Adapt Rails event logs for `console`.
 
-[![Development Status](https://github.com/socketry/console-adapter-rails/workflows/Test/badge.svg)](https://github.com/socketry/console-adapter-rails/actions?workflow=Test)
+[![Development
+Status](https://github.com/socketry/console-adapter-rails/workflows/Test/badge.svg)](https://github.com/socketry/console-adapter-rails/actions?workflow=Test)
 
 ## Usage
 
-Please see the [project documentation](https://socketry.github.io/console-adapter-rails).
+Please see the [project documentation](https://github.com/socketry/console-adapter-rails) for more details.
+
+  - [Getting Started](https://github.com/socketry/console-adapter-railsguides/getting-started/index) - This guide
+    explains how to integrate the `console-adapter-rails` gem into your Rails application.
 
 ## Contributing
 
@@ -20,8 +24,10 @@ We welcome contributions to this project.
 
 ### Developer Certificate of Origin
 
-This project uses the [Developer Certificate of Origin](https://developercertificate.org/). All contributors to this project must agree to this document to have their contributions accepted.
+This project uses the [Developer Certificate of Origin](https://developercertificate.org/). All contributors to this
+project must agree to this document to have their contributions accepted.
 
 ### Contributor Covenant
 
-This project is governed by [Contributor Covenant](https://www.contributor-covenant.org/). All contributors and participants agree to abide by its terms.
+This project is governed by [Contributor Covenant](https://www.contributor-covenant.org/). All contributors and
+participants agree to abide by its terms.
