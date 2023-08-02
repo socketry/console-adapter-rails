@@ -4,6 +4,7 @@
 # Copyright, 2023, by Samuel Williams.
 
 require 'console'
+require 'console/compatible/logger'
 
 require 'active_support/log_subscriber'
 require 'action_controller/log_subscriber'
