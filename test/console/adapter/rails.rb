@@ -17,6 +17,14 @@ describe Rails do
 		Console.logger = logger
 	end
 	
+	it "does not output to stdout" do
+		skip_unless_method_defined(:logger_outputs_to?, ActiveSupport::Logger.singleton_class)
+		
+		expect(
+			ActiveSupport::Logger.logger_outputs_to?(Rails.logger, STDOUT)
+		).to be == true
+	end
+	
 	it "can generate test controller logs" do
 		session.get "/"
 		expect(capture.last).to have_keys(

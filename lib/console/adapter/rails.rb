@@ -10,6 +10,8 @@ require 'action_controller/log_subscriber'
 require 'action_view/log_subscriber'
 require 'active_job/log_subscriber'
 
+require_relative 'rails/active_support'
+
 module Console
 	module Adapter
 		# A Rails adapter for the console logger.
