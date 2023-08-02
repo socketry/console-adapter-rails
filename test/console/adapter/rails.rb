@@ -30,4 +30,18 @@ describe Rails do
 			view_runtime: be_a(Float),
 		)
 	end
+	
+	it "can generate test controller logs with redirects" do
+		session.get "/goodbye"
+		expect(capture.last).to have_keys(
+			subject: be == "process_action.action_controller",
+			controller: be == "TestController",
+			action: be == "goodbye",
+			format: be == :html,
+			method: be == "GET",
+			path: be == "/goodbye",
+			status: be == 302,
+			location: be == "https://www.codeotaku.com/",
+		)
+	end
 end

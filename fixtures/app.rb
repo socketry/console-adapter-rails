@@ -18,6 +18,7 @@ class TestApplication < Rails::Application
 	
 	routes.append do
 		root to: 'test#index'
+		get '/goodbye', to: 'test#goodbye'
 	end
 end
 
@@ -27,6 +28,10 @@ end
 class TestController < ActionController::Base
 	def index
 		render inline: 'Hi!'
+	end
+	
+	def goodbye
+		redirect_to "https://www.codeotaku.com/"
 	end
 end
 
