@@ -29,6 +29,8 @@ module Console
 				# - `view_runtime`: The time spent rendering views.
 				# - `db_runtime`: The time spent querying the database.
 				# - `location`: The redirect location if any.
+				# - `allocations`: The number of allocations performed.
+				# - `duration`: The total time spent processing the request.
 				def process_action(event)
 					payload = event.payload.dup
 					
@@ -45,6 +47,9 @@ module Console
 					if location
 						payload[:location] = location
 					end
+					
+					payload[:allocations] = event.allocations
+					payload[:duration] = event.duration
 					
 					Console.logger.info(event.name, **payload)
 				end

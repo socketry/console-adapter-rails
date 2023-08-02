@@ -28,6 +28,8 @@ describe Rails do
 			path: be == "/",
 			status: be == 200,
 			view_runtime: be_a(Float),
+			allocations: be_a(Integer),
+			duration: be_a(Float),
 		)
 	end
 	
