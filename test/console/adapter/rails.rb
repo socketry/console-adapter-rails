@@ -17,6 +17,10 @@ describe Rails do
 		Console.logger = logger
 	end
 	
+	it "should support tags" do
+		expect(Rails.logger).to be(:respond_to?, :tagged)
+	end
+	
 	it "does not output to stdout" do
 		skip_unless_method_defined(:logger_outputs_to?, ActiveSupport::Logger.singleton_class)
 		

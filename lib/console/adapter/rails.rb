@@ -7,6 +7,7 @@ require 'console'
 require 'console/compatible/logger'
 
 require 'active_support/log_subscriber'
+require 'active_support/tagged_logging'
 require 'action_controller/log_subscriber'
 require 'action_view/log_subscriber'
 require 'active_job/log_subscriber'
@@ -71,7 +72,10 @@ module Console
 				
 				if configuration
 					# Set the logger to a compatible logger to catch `Rails.logger` output:
-					configuration.logger = Console::Compatible::Logger.new("Rails", Console.logger)
+					configuration.logger = ActiveSupport::TaggedLogging.new(
+						Console::Compatible::Logger.new("Rails", Console.logger)
+					)
+					
 					# Delete `Rails::Rack::Logger` as it also doubles up on request logs:
 					configuration.middleware.delete ::Rails::Rack::Logger
 				end
