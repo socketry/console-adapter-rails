@@ -45,10 +45,12 @@ module Console
 					request = payload.delete(:request)
 					response = payload.delete(:response)
 					
-					# Extract redirect location if any:
-					location = response.headers['Location'] || response.headers['location']
-					if location
-						payload[:location] = location
+					if response and headers = response.headers
+						# Extract redirect location if any:
+						location = response.headers['Location'] || response.headers['location']
+						if location
+							payload[:location] = location
+						end
 					end
 					
 					payload[:allocations] = event.allocations
