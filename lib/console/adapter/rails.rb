@@ -73,7 +73,7 @@ module Console
 				if configuration
 					# Set the logger to a compatible logger to catch `Rails.logger` output:
 					configuration.logger = ActiveSupport::TaggedLogging.new(
-						Console::Compatible::Logger.new("Rails", Console.logger)
+						Console::Compatible::Logger.new(::Rails)
 					)
 					
 					# Delete `Rails::Rack::Logger` as it also doubles up on request logs:

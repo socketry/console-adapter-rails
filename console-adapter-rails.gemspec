@@ -19,6 +19,6 @@ Gem::Specification.new do |spec|
 	
 	spec.required_ruby_version = ">= 3.0"
 	
-	spec.add_dependency "console"
+	spec.add_dependency "console", "~> 1.21"
 	spec.add_dependency "rails", ">= 6.1"
 end
