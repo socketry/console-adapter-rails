@@ -42,6 +42,7 @@ describe Rails do
 			view_runtime: be_a(Float),
 			allocations: be_a(Integer),
 			duration: be_a(Float),
+			source_address: be == "127.0.0.1",
 		)
 	end
 	
@@ -55,6 +56,7 @@ describe Rails do
 			method: be == "GET",
 			path: be == "/goodbye",
 			status: be == 302,
+			source_address: be == "127.0.0.1",
 			location: be == "https://www.codeotaku.com/",
 		)
 	end

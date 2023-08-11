@@ -46,6 +46,10 @@ module Console
 					request = payload.delete(:request)
 					response = payload.delete(:response)
 					
+					if request and ip = request.remote_ip
+						payload[:source_address] = ip
+					end
+					
 					if response and headers = response.headers
 						# Extract redirect location if any:
 						location = response.headers['Location'] || response.headers['location']
