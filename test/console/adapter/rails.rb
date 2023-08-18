@@ -21,6 +21,10 @@ describe Rails do
 		expect(Rails.logger).to be(:respond_to?, :tagged)
 	end
 	
+	it "should support silence" do
+		expect(Rails.logger).to be(:respond_to?, :silence)
+	end
+	
 	it "does not output to stdout" do
 		skip_unless_method_defined(:logger_outputs_to?, ActiveSupport::Logger.singleton_class)
 		
