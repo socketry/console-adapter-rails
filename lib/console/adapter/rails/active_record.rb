@@ -53,17 +53,11 @@ module Console
 					end
 					
 					def bind_value(attribute, value)
-						value = self.filter(attribute.name, value)
-						
-						if attribute.type.binary?
-							"<#{value.bytesize} bytes of binary data>"
+						if attribute.came_from_user?
+							attribute.type.class.name
 						else
 							value
 						end
-					end
-					
-					def filter(name, value)
-						::ActiveRecord::Base.inspection_filter.filter_param(name, value)
 					end
 				end
 				

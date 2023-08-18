@@ -13,11 +13,12 @@ describe Console::Adapter::Rails::ActionController do
 	
 	def before
 		super
+		
 		Console.logger = logger
 	end
 	
 	it "can generate query logs when creating record" do
-		Post.create!(title: "Hello World", body: "This is a test.")
+		Post.create!(title: "Hello World", body: {text: "This is a test."})
 		
 		expect(capture.last).to have_keys(
 			subject: be == "sql.active_record",
@@ -29,10 +30,10 @@ describe Console::Adapter::Rails::ActionController do
 		)
 		
 		binds = capture.last[:binds]
-		expect(binds[0]).to be == ["title", "Hello World"]
+		expect(binds[0]).to be == ["title", "ActiveModel::Type::String"]
 		expect(binds[1].first).to be == "created_at"
 		expect(binds[2].first).to be == "updated_at"
-		expect(binds[3]).to be == ["body", "This is a test."]
+		expect(binds[3]).to be == ["body", "ActiveRecord::Type::Json"]
 	end
 	
 	it "can generate query logs when updating record" do
@@ -50,7 +51,7 @@ describe Console::Adapter::Rails::ActionController do
 		)
 		
 		binds = capture.last[:binds]
-		expect(binds[0]).to be == ["title", "Goodbye World"]
+		expect(binds[0]).to be == ["title", "ActiveModel::Type::String"]
 		expect(binds[1].first).to be == "updated_at"
 		expect(binds[2]).to be == ["id", post.id]
 	end
@@ -68,6 +69,23 @@ describe Console::Adapter::Rails::ActionController do
 		)
 		
 		binds = capture.last[:binds]
-		expect(binds[0]).to be == ["body", "<15 bytes of binary data>"]
+		expect(binds[0]).to be == ["body", "ActiveModel::Type::Binary"]
+	end
+	
+	it "filters out sensitive attributes" do
+		user = User.create!(name: "Rick", password: "secret")
+		
+		expect(capture.last).to have_keys(
+			subject: be == "sql.active_record",
+			sql: be =~ /INSERT INTO "users"/,
+			binds: be_a(Array),
+			name: be == "User Create",
+			allocations: be_a(Integer),
+			duration: be_a(Float),
+		)
+		
+		binds = capture.last[:binds]
+		expect(binds[0]).to be == ["name", "ActiveModel::Type::String"]
+		expect(binds[1]).to be == ["password", "ActiveModel::Type::String"]
 	end
 end

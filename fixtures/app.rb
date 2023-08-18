@@ -38,35 +38,13 @@ class TestController < ActionController::Base
 	end
 end
 
-# Set up a database that resides in RAM
-ActiveRecord::Base.establish_connection(
-	adapter: 'sqlite3',
-	database: ':memory:'
-)
-
-# Set up database tables and columns
-ActiveRecord::Schema.define do
-	self.verbose = false
-	
-	create_table "comments", force: :cascade do |t|
-		t.binary "body"
-		t.integer "post_id"
-		t.datetime "created_at", null: false
-		t.datetime "updated_at", null: false
-		t.index ["post_id"], name: "index_comments_on_post_id"
-	end
-	
-	create_table "posts", force: :cascade do |t|
-		t.string "title"
-		t.datetime "created_at", null: false
-		t.datetime "updated_at", null: false
-		t.text "body"
-	end
-end
-
 # Set up model classes
 class ApplicationRecord < ActiveRecord::Base
 	self.abstract_class = true
+end
+
+class User < ApplicationRecord
+	self.filter_attributes = [:password]
 end
 
 class Comment < ApplicationRecord
@@ -78,3 +56,36 @@ class Post < ApplicationRecord
 end
 
 TestApplication.initialize!
+
+# Set up a database that resides in memory:
+ActiveRecord::Base.establish_connection(
+	adapter: 'sqlite3',
+	database: 'test.db'
+)
+
+# Set up database tables and columns
+ActiveRecord::Schema.define do
+	self.verbose = false
+	
+	create_table "users", force: :cascade do |table|
+		table.string "name"
+		table.string "password"
+		table.datetime "created_at", null: false
+		table.datetime "updated_at", null: false
+	end
+	
+	create_table "comments", force: :cascade do |table|
+		table.binary "body"
+		table.integer "post_id"
+		table.datetime "created_at", null: false
+		table.datetime "updated_at", null: false
+		table.index ["post_id"], name: "index_comments_on_post_id"
+	end
+	
+	create_table "posts", force: :cascade do |table|
+		table.string "title"
+		table.datetime "created_at", null: false
+		table.datetime "updated_at", null: false
+		table.json "body"
+	end
+end
