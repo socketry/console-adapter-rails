@@ -53,10 +53,10 @@ module Console
 					end
 					
 					def bind_value(attribute, value)
-						if attribute.came_from_user?
-							attribute.type.class.name
-						else
+						if value.is_a?(Numeric)
 							value
+						else
+							attribute.type.class.name
 						end
 					end
 				end
