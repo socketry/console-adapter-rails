@@ -52,21 +52,9 @@ module Console
 						type_casted_binds = payload.delete(:type_casted_binds)
 						
 						if binds&.any? and type_casted_binds
-							payload[:binds] = binds.map.with_index do |bind, index|
-								attribute = self.bind_attribute(bind)
-								value = self.bind_value(attribute, type_casted_binds[index])
-								
-								[attribute.name, value]
+							payload[:binds] = binds.map.with_index do |attribute, index|
+								[attribute.name, self.bind_value(attribute, type_casted_binds[index])]
 							end
-						end
-					end
-					
-					def bind_attribute(bind)
-						case bind
-						when ::ActiveModel::Attribute
-							bind
-						when Array
-							bind.first
 						end
 					end
 					
