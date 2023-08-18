@@ -54,4 +54,20 @@ describe Console::Adapter::Rails::ActionController do
 		expect(binds[1].first).to be == "updated_at"
 		expect(binds[2]).to be == ["id", post.id]
 	end
+	
+	it "can generate query logs with binary data" do
+		comment = Comment.create!(body: "This is a test.")
+		
+		expect(capture.last).to have_keys(
+			subject: be == "sql.active_record",
+			sql: be =~ /INSERT INTO "comments"/,
+			binds: be_a(Array),
+			name: be == "Comment Create",
+			allocations: be_a(Integer),
+			duration: be_a(Float),
+		)
+		
+		binds = capture.last[:binds]
+		expect(binds[0]).to be == ["body", "<15 bytes of binary data>"]
+	end
 end
