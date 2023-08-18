@@ -14,19 +14,13 @@ module Console
 				class LogSubscriber < ::ActiveSupport::LogSubscriber
 					IGNORE_PAYLOAD_NAMES = ["SCHEMA", "EXPLAIN", "TRANSACTION"]
 					
-					# Log sql events.
+					# Log an ActiveRecord sql event.
 					#
 					# Includes the following fields:
 					# - `subject`: "process_action.action_controller"
-					# - `controller`: The name of the controller.
-					# - `action`: The action performed.
-					# - `format`: The format of the response.
-					# - `method`: The HTTP method of the request.
-					# - `path`: The path of the request.
-					# - `status`: The HTTP status code of the response.
-					# - `view_runtime`: The time spent rendering views in milliseconds.
-					# - `db_runtime`: The time spent querying the database in milliseconds.
-					# - `location`: The redirect location if any.
+					# - `sql`: The SQL query itself.
+					# - `name`: The name of the query.
+					# - `binds`: The bind parameters as an array of name-value pairs.
 					# - `allocations`: The number of allocations performed.
 					# - `duration`: The total time spent processing the request in milliseconds.
 					def sql(event)

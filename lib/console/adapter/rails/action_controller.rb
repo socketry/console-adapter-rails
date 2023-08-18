@@ -14,7 +14,7 @@ module Console
 			module ActionController
 				# A Rails log subscriber which is compatible with `Console::Logger`. It receives events from `ActiveSupport::Notifications` and logs them to the console.
 				class LogSubscriber < ::ActiveSupport::LogSubscriber
-					# Log controller action events.
+					# Log an ActionController `process_action` event.
 					#
 					# Includes the following fields:
 					# - `subject`: "process_action.action_controller"
