@@ -7,7 +7,7 @@ require 'app'
 require 'console/capture'
 require 'console/logger'
 
-describe Rails do
+describe Console::Adapter::Rails::ActionController do
 	let(:capture) {Console::Capture.new}
 	let(:logger) {Console::Logger.new(capture)}
 	let(:session) {ActionDispatch::Integration::Session.new(TestApplication)}
@@ -15,22 +15,6 @@ describe Rails do
 	def before
 		super
 		Console.logger = logger
-	end
-	
-	it "should support tags" do
-		expect(Rails.logger).to be(:respond_to?, :tagged)
-	end
-	
-	it "should support silence" do
-		expect(Rails.logger).to be(:respond_to?, :silence)
-	end
-	
-	it "does not output to stdout" do
-		skip_unless_method_defined(:logger_outputs_to?, ActiveSupport::Logger.singleton_class)
-		
-		expect(
-			ActiveSupport::Logger.logger_outputs_to?(Rails.logger, STDOUT)
-		).to be == true
 	end
 	
 	it "can generate test controller logs" do
