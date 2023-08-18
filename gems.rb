@@ -20,4 +20,6 @@ group :test do
 	
 	gem "sus"
 	gem "covered"
+	
+	gem "sqlite3"
 end

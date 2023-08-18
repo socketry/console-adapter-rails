@@ -5,6 +5,7 @@
 
 require 'rails'
 require 'action_controller/railtie'
+require 'active_record'
 
 require 'console/compatible/logger'
 require_relative '../lib/console/adapter/rails'
@@ -22,6 +23,8 @@ class TestApplication < Rails::Application
 	end
 end
 
+Console::Adapter::Rails.apply!
+
 module TestHelper
 end
 
@@ -35,5 +38,43 @@ class TestController < ActionController::Base
 	end
 end
 
-Console::Adapter::Rails.apply!
+# Set up a database that resides in RAM
+ActiveRecord::Base.establish_connection(
+	adapter: 'sqlite3',
+	database: ':memory:'
+)
+
+# Set up database tables and columns
+ActiveRecord::Schema.define do
+	self.verbose = false
+	
+	create_table "comments", force: :cascade do |t|
+		t.text "body"
+		t.integer "post_id"
+		t.datetime "created_at", null: false
+		t.datetime "updated_at", null: false
+		t.index ["post_id"], name: "index_comments_on_post_id"
+	end
+	
+	create_table "posts", force: :cascade do |t|
+		t.string "title"
+		t.datetime "created_at", null: false
+		t.datetime "updated_at", null: false
+		t.text "body"
+	end
+end
+
+# Set up model classes
+class ApplicationRecord < ActiveRecord::Base
+	self.abstract_class = true
+end
+
+class Comment < ApplicationRecord
+	belongs_to :post
+end
+
+class Post < ApplicationRecord
+	has_many :comments
+end
+
 TestApplication.initialize!
