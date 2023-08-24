@@ -25,7 +25,7 @@ module Console
 					
 					# Add our own subscribers:
 					Rails::ActionController.apply!(notifications: notifications)
-					Rails::ActiveRecord.apply!(notifications: notifications)
+					# Rails::ActiveRecord.apply!(notifications: notifications)
 				end
 			end
 		end
