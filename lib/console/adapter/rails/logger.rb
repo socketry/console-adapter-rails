@@ -5,6 +5,7 @@
 
 require 'console/compatible/logger'
 
+require 'fiber/storage'
 require 'active_support/logger'
 require 'active_support/tagged_logging'
 require 'active_support/logger_silence'
@@ -23,7 +24,32 @@ module Console
 		# A Rails adapter for the console logger.
 		module Rails
 			class Logger < ::Console::Compatible::Logger
-				include ::ActiveSupport::LoggerSilence
+				def initialize(...)
+					super
+					
+					@silence_key = :"#{self.class}.silence.#{object_id}"
+				end
+				
+				# Silences the logger for the duration of the block.
+				def silence(severity = Logger::ERROR)
+					current = Fiber[@silence_key]
+					Fiber[@silence_key] = severity
+					yield(self)
+				ensure
+					Fiber[@silence_key] = current
+				end
+				
+				def silenced?(severity)
+					if current = Fiber[@silence_key]
+						severity < current
+					end
+				end
+				
+				def add(severity, message = nil, progname = nil, &block)
+					return if silenced?(severity)
+					
+					super(severity, message, progname, &block)
+				end
 				
 				def self.apply!(configuration: ::Rails.configuration)
 					# Set the logger to a compatible logger to catch `Rails.logger` output:

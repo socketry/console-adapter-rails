@@ -22,6 +22,12 @@ describe Console::Adapter::Rails::Logger do
 	
 	it "should support silence" do
 		expect(Rails.logger).to be(:respond_to?, :silence)
+		
+		Rails.logger.silence(Logger::ERROR) do
+			Rails.logger.info("Hello World")
+		end
+		
+		expect(capture.last).to be_nil
 	end
 	
 	it "does not output to stdout" do
@@ -30,5 +36,15 @@ describe Console::Adapter::Rails::Logger do
 		expect(
 			ActiveSupport::Logger.logger_outputs_to?(Rails.logger, STDOUT)
 		).to be == true
+	end
+	
+	it "can log a message" do
+		Rails.logger.info("Hello World")
+		
+		expect(capture.last).to have_keys(
+			severity: be == :info,
+			subject: be == Rails,
+			arguments: be == ["Hello World"]
+		)
 	end
 end
