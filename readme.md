@@ -7,10 +7,9 @@ Status](https://github.com/socketry/console-adapter-rails/workflows/Test/badge.s
 
 ## Usage
 
-Please see the [project documentation](https://socketry.github.io/console-adapter-rails) for more details.
+Please see the [project documentation](https://socketry.github.io/console-adapter-rails/) for more details.
 
-  - [Getting Started](https://github.com/socketry/console-adapter-railsguides/getting-started/index) - This guide
-    explains how to integrate the `console-adapter-rails` gem into your Rails application.
+  - [Getting Started](https://socketry.github.io/console-adapter-rails/guides/getting-started/index) - This guide explains how to integrate the `console-adapter-rails` gem into your Rails application.
 
 ## Contributing
 

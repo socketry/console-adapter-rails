@@ -15,6 +15,10 @@ Gem::Specification.new do |spec|
 	
 	spec.homepage = "https://github.com/socketry/console-adapter-rails"
 	
+	spec.metadata = {
+		"documentation_uri" => "https://socketry.github.io/console-adapter-rails/",
+	}
+	
 	spec.files = Dir.glob(['{lib}/**/*', '*.md'], File::FNM_DOTMATCH, base: __dir__)
 	
 	spec.required_ruby_version = ">= 3.0"
