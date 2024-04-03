@@ -59,14 +59,11 @@ module Console
 					super(severity, message, progname, &block)
 				end
 				
-				def self.apply!(configuration: ::Rails.configuration)
+				def self.apply!(rails: ::Rails)
 					# Set the logger to a compatible logger to catch `Rails.logger` output:
-					configuration.logger = ActiveSupport::TaggedLogging.new(
+					rails.logger = ActiveSupport::TaggedLogging.new(
 						Logger.new(::Rails)
 					)
-					
-					# Delete `Rails::Rack::Logger` as it also doubles up on request logs:
-					configuration.middleware.delete ::Rails::Rack::Logger
 				end
 			end
 		end

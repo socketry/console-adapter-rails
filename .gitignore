@@ -1,6 +1,7 @@
 /.bundle/
 /pkg/
 /gems.locked
+/gems/*.lock
 /.covered.db
 /external
 
@@ -9,3 +10,4 @@
 
 /gems.locked
 /fixtures/test.db
+/fixtures/log/

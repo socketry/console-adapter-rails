@@ -7,23 +7,9 @@ This guide explains how to integrate the `console-adapter-rails` gem into your R
 Add the gem to your project:
 
 ~~~ bash
-$ bundle add console
+$ bundle add console-adapter-rails
 ~~~
 
-## Update your Environment
+The gem includes a Railtie that will set up all required logging configuration for you.
 
-To add this to a Rails application, update your `config/environment.rb` file:
-
-~~~ ruby
-# frozen_string_literal: true
-
-# Load the Rails application.
-require_relative 'application'
-
-# Setup the console adapter:
-require 'console/adapter/rails'
-Console::Adapter::Rails.apply!
-
-# Initialize the Rails application.
-Rails.application.initialize!
-~~~
+If you wish to log ActiveRecord, add `Console::Adapter::Rails::ActiveRecord.apply!` into your `config/environment.rb` file, before the `Rails.application.initialize!` call.
