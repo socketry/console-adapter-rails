@@ -64,9 +64,6 @@ module Console
 					configuration.logger = ActiveSupport::TaggedLogging.new(
 						Logger.new(::Rails)
 					)
-					
-					# Delete `Rails::Rack::Logger` as it also doubles up on request logs:
-					configuration.middleware.delete ::Rails::Rack::Logger
 				end
 			end
 		end

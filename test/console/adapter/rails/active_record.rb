@@ -7,7 +7,7 @@ require 'app'
 require 'console/capture'
 require 'console/logger'
 
-describe Console::Adapter::Rails::ActionController do
+describe Console::Adapter::Rails::ActiveRecord do
 	let(:capture) {Console::Capture.new}
 	let(:logger) {Console::Logger.new(capture)}
 	
@@ -15,6 +15,7 @@ describe Console::Adapter::Rails::ActionController do
 		super
 		
 		Console.logger = logger
+		Console::Adapter::Rails::ActiveRecord.apply!
 	end
 	
 	it "can generate query logs when creating record" do

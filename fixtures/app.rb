@@ -23,8 +23,6 @@ class TestApplication < Rails::Application
 	end
 end
 
-Console::Adapter::Rails.apply!
-
 module TestHelper
 end
 
