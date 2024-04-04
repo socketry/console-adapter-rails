@@ -12,9 +12,11 @@ require 'active_support/logger_silence'
 
 if ActiveSupport::Logger.respond_to?(:logger_outputs_to?)
 	# https://github.com/rails/rails/issues/44800
-	class ActiveSupport::Logger
-		def self.logger_outputs_to?(*)
-			true
+	module ActiveSupport
+		class Logger
+			def self.logger_outputs_to?(*)
+				true
+			end
 		end
 	end
 end
