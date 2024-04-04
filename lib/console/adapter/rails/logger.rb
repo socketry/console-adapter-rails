@@ -59,9 +59,9 @@ module Console
 					super(severity, message, progname, &block)
 				end
 				
-				def self.apply!(rails: ::Rails)
+				def self.apply!(configuration: ::Rails.configuration)
 					# Set the logger to a compatible logger to catch `Rails.logger` output:
-					rails.logger = ActiveSupport::TaggedLogging.new(
+					configuration.logger = ActiveSupport::TaggedLogging.new(
 						Logger.new(::Rails)
 					)
 				end

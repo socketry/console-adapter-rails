@@ -11,9 +11,9 @@ module Console
 		module Rails
 			# Hook into Rails startup process and replace Rails.logger with our custom hooks
       class Railtie < ::Rails::Railtie
-				initializer 'console.adapter.rails' do |app|
+				initializer 'console.adapter.rails', before: :initialize_logger do |app|
 					# 1. Set up Console to be used as the Rails logger
-					Logger.apply!
+					Logger.apply!(configuration: app.config)
 
 					# 2. Remove the Rails::Rack::Logger middleware as it also doubles up on request logs
 					app.middleware.delete ::Rails::Rack::Logger
