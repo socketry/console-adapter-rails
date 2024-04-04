@@ -30,6 +30,14 @@ module Console
 					@silence_key = :"#{self.class}.silence.#{object_id}"
 				end
 				
+				def local_level= severity
+					Fiber[@silence_key] = severity
+				end
+				
+				def local_level
+					Fiber[@silence_key]
+				end
+				
 				# Silences the logger for the duration of the block.
 				def silence(severity = Logger::ERROR)
 					current = Fiber[@silence_key]
