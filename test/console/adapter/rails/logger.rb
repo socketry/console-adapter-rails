@@ -10,6 +10,7 @@ require 'console/logger'
 describe Console::Adapter::Rails::Logger do
 	let(:capture) {Console::Capture.new}
 	let(:logger) {Console::Logger.new(capture)}
+	let(:instance) {subject.new(::Rails)}
 	
 	def before
 		super
@@ -46,5 +47,22 @@ describe Console::Adapter::Rails::Logger do
 			subject: be == Rails,
 			arguments: be == ["Hello World"]
 		)
+	end
+
+	it "behaves like Rails 6 logger" do
+		instance.silence(Logger::ERROR) do
+			instance.info("Hello World")
+		end
+
+		expect(capture.last).to be_nil
+	end
+
+	it "behaves like Rails 7 logger" do
+		instance.local_level = Logger::ERROR
+		expect(instance.local_level).to be == Logger::ERROR
+		instance.info("Hello World")
+		instance.local_level = nil
+
+		expect(capture.last).to be_nil
 	end
 end
