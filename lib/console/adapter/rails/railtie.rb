@@ -10,7 +10,7 @@ module Console
 	module Adapter
 		module Rails
 			# Hook into Rails startup process and replace Rails.logger with our custom hooks
-      class Railtie < ::Rails::Railtie
+			class Railtie < ::Rails::Railtie
 				initializer 'console.adapter.rails', before: :initialize_logger do |app|
 					# 1. Set up Console to be used as the Rails logger
 					Logger.apply!(configuration: app.config)
@@ -20,21 +20,21 @@ module Console
 				end
 
 				# 3. Remove existing log subscribers for ActionController and ActionView
-        config.after_initialize do
+				config.after_initialize do
 					::ActionController::LogSubscriber.detach_from :action_controller
 
 					# Silence the default action view logs, e.g. "Rendering text template" etc
 					::ActionView::LogSubscriber.detach_from :action_view
 				end
 
-        config.after_initialize do
+				config.after_initialize do
 					# 4. Add a new log subscriber for ActionController
 					ActionController.apply!
 
 					# 5. (optionally) Add a new log subscriber for ActiveRecord
 					# ActiveRecord.apply!
-        end
-      end
-    end
-  end
+				end
+			end
+		end
+	end
 end
