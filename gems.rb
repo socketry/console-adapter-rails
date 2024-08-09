@@ -23,5 +23,5 @@ group :test do
 	gem "bake-test"
 	gem "bake-test-external"
 	
-	gem "sqlite3"
+	gem "sqlite3", "~> 1.4"
 end
