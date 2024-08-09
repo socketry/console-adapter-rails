@@ -1,10 +1,11 @@
 # frozen_string_literal: true
 
 # Released under the MIT License.
-# Copyright, 2023, by Samuel Williams.
+# Copyright, 2023-2024, by Samuel Williams.
 
 require 'console'
 
+require 'active_support/log_subscriber'
 require 'action_controller/log_subscriber'
 
 module Console

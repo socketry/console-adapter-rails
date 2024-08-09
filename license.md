@@ -1,6 +1,8 @@
 # MIT License
 
-Copyright, 2023, by Samuel Williams.  
+Copyright, 2023-2024, by Samuel Williams.  
+Copyright, 2023, by Joshua Young.  
+Copyright, 2024, by Michael Adams.  
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
