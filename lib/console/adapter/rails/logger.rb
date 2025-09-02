@@ -3,6 +3,7 @@
 # Released under the MIT License.
 # Copyright, 2023-2025, by Samuel Williams.
 # Copyright, 2024, by Michael Adams.
+# Copyright, 2026, by Yasha Krasnou.
 
 require "console/compatible/logger"
 
@@ -83,7 +84,25 @@ module Console
 				def add(severity, message = nil, progname = nil, &block)
 					return if silenced?(severity)
 					
-					super(severity, message, progname, &block)
+					if formatter.respond_to?(:tag_stack)
+						tags = formatter.tag_stack.tags
+						
+						options = tags.each_with_object({}) do |tag, memo|
+							next unless tag.respond_to?(:to_hash)
+							
+							tag.to_hash.each do |key, value|
+								case key
+								when Symbol
+									memo[key] = value
+								else
+									next unless key.respond_to?(:to_sym)
+									memo[key.to_sym] = value
+								end
+							end
+						end
+					end
+					
+					super(severity, message, progname, **options, &block)
 				end
 				
 				# Configure Rails to use the Console logger.

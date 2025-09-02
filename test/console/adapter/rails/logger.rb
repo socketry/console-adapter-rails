@@ -3,6 +3,7 @@
 # Released under the MIT License.
 # Copyright, 2023-2026, by Samuel Williams.
 # Copyright, 2024, by Michael Adams.
+# Copyright, 2026, by Yasha Krasnou.
 
 require "app"
 require "console/capture"
@@ -19,6 +20,54 @@ describe Console::Adapter::Rails::Logger do
 		
 		it "should support tags" do
 			expect(Rails.logger).to be(:respond_to?, :tagged)
+		end
+		
+		it "should log tags that are Hashes" do
+			Rails.logger.tagged({ foo: "bar" }) do
+				Rails.logger.info("Hello World")
+			end
+			
+			expect(capture.last).to have_keys(
+				message: be == "Hello World",
+				foo: be == "bar"
+			)
+		end
+		
+		it "should not fail when logging string tags" do
+			Rails.logger.tagged("foo=bar") do
+				Rails.logger.info("Hello World")
+			end
+			
+			expect(capture.last).to have_keys(
+				message: be == "Hello World"
+			)
+			
+			expect(capture.last).not.to have_keys(:foo)
+			expect(capture.last).not.to have_keys("foo=bar")
+		end
+		
+		it "should symbolize string-keyed hash tags" do
+			Rails.logger.tagged({ "request_id" => "abc" }) do
+				Rails.logger.info("Hello World")
+			end
+			
+			expect(capture.last).to have_keys(
+				message: be == "Hello World",
+				request_id: be == "abc"
+			)
+			expect(capture.last).not.to have_keys("request_id")
+		end
+		
+		it "should symbolize HashWithIndifferentAccess tags" do
+			Rails.logger.tagged(ActiveSupport::HashWithIndifferentAccess.new(request_id: "xyz")) do
+				Rails.logger.info("Hello World")
+			end
+			
+			expect(capture.last).to have_keys(
+				message: be == "Hello World",
+				request_id: be == "xyz"
+			)
+			expect(capture.last).not.to have_keys("request_id")
 		end
 		
 		it "should support silence" do

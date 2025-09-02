@@ -7,7 +7,7 @@ Gem::Specification.new do |spec|
 	spec.version = Console::Adapter::Rails::VERSION
 	
 	spec.summary = "Adapt Rails logs and events to the console gem."
-	spec.authors = ["Samuel Williams", "Joshua Young", "Jun Jiang", "Michael Adams"]
+	spec.authors = ["Samuel Williams", "Joshua Young", "Jun Jiang", "Michael Adams", "Yasha Krasnou"]
 	spec.license = "MIT"
 	
 	spec.cert_chain  = ["release.cert"]
@@ -24,7 +24,7 @@ Gem::Specification.new do |spec|
 	
 	spec.required_ruby_version = ">= 3.3"
 	
-	spec.add_dependency "console", "~> 1.21"
+	spec.add_dependency "console", "~> 1.34"
 	spec.add_dependency "fiber-storage", "~> 1.0"
 	spec.add_dependency "rails", ">= 7.0"
 end
