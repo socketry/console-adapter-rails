@@ -31,8 +31,4 @@ group :test do
 	gem "bake-test-external"
 	
 	gem "sqlite3", ">= 1.4"
-	gem "rails", "< 8.0"
-
-	gem 'console', git: 'git@github.com:HolyWalley/console.git', branch: 'support-tagged-logging'
->>>>>>> 01d6852 (Add tests)
 end
