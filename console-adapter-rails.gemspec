@@ -26,5 +26,5 @@ Gem::Specification.new do |spec|
 	
 	spec.add_dependency "console", "~> 1.21"
 	spec.add_dependency "fiber-storage", "~> 1.0"
-	spec.add_dependency "rails", ">= 6.1"
+	spec.add_dependency "rails", ">= 7.0"
 end

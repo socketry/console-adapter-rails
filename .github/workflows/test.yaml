@@ -21,13 +21,12 @@ jobs:
           - macos
         
         ruby:
-          - "3.1"
-          - "3.2"
           - "3.3"
+          - "3.4"
         
         gemfile:
-          - gems/rails-v6.rb
           - gems/rails-v7.rb
+          - gems/rails-v8.rb
           
         experimental: [false]
         
