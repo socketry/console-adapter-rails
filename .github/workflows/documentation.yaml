@@ -25,7 +25,7 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v6
 
     - uses: ruby/setup-ruby@v1
       with:
@@ -40,7 +40,7 @@ jobs:
       run: bundle exec bake utopia:project:static --force no
     
     - name: Upload documentation artifact
-      uses: actions/upload-pages-artifact@v3
+      uses: actions/upload-pages-artifact@v4
       with:
         path: docs
   

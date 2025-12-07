@@ -24,7 +24,7 @@ jobs:
           - "3.3"
     
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v6
     - uses: ruby/setup-ruby@v1
       with:
         ruby-version: ${{matrix.ruby}}
@@ -34,7 +34,7 @@ jobs:
       timeout-minutes: 5
       run: bundle exec bake test
     
-    - uses: actions/upload-artifact@v3
+    - uses: actions/upload-artifact@v5
       with:
         name: coverage-${{matrix.os}}-${{matrix.ruby}}
         path: .covered.db
@@ -44,13 +44,13 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v6
     - uses: ruby/setup-ruby@v1
       with:
         ruby-version: "3.3"
         bundler-cache: true
     
-    - uses: actions/download-artifact@v3
+    - uses: actions/download-artifact@v5
     
     - name: Validate coverage
       timeout-minutes: 5
