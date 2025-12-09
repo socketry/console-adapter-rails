@@ -5,4 +5,4 @@
 
 eval_gemfile('../gems.rb')
 
-gem 'rails', '~> 6.0'
+gem 'rails', '~> 8.0'

@@ -15,23 +15,31 @@ module Console
 				initializer 'console.adapter.rails', before: :initialize_logger do |app|
 					# 1. Set up Console to be used as the Rails logger
 					Logger.apply!(configuration: app.config)
-
+					
 					# 2. Remove the Rails::Rack::Logger middleware as it also doubles up on request logs
 					app.middleware.delete ::Rails::Rack::Logger
 				end
-
+				
 				# 3. Remove existing log subscribers for ActionController and ActionView
 				config.after_initialize do
-					::ActionController::LogSubscriber.detach_from :action_controller
-
+					if ::ActionController::LogSubscriber < ::ActiveSupport::LogSubscriber
+						::ActionController::LogSubscriber.detach_from :action_controller
+					else
+						::ActiveSupport.event_reporter.unsubscribe(::ActionController::LogSubscriber)
+					end
+					
 					# Silence the default action view logs, e.g. "Rendering text template" etc
-					::ActionView::LogSubscriber.detach_from :action_view
+					if ::ActionView::LogSubscriber < ::ActiveSupport::LogSubscriber
+						::ActionView::LogSubscriber.detach_from :action_view
+					else
+						::ActiveSupport.event_reporter.unsubscribe(::ActionView::LogSubscriber)
+					end
 				end
-
+				
 				config.after_initialize do
 					# 4. Add a new log subscriber for ActionController
 					ActionController.apply!
-
+					
 					# 5. (optionally) Add a new log subscriber for ActiveRecord
 					# ActiveRecord.apply!
 				end
