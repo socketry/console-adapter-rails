@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
 # Released under the MIT License.
-# Copyright, 2023-2024, by Samuel Williams.
+# Copyright, 2023-2025, by Samuel Williams.
 
-require 'console'
+require "console"
 
-require 'active_support/log_subscriber'
-require 'action_controller/log_subscriber'
+require "active_support/log_subscriber"
+require "action_controller/log_subscriber"
 
 module Console
 	module Adapter
@@ -47,7 +47,7 @@ module Console
 						
 						if response and headers = response.headers
 							# Extract redirect location if any:
-							location = response.headers['Location'] || response.headers['location']
+							location = response.headers["Location"] || response.headers["location"]
 							if location
 								payload[:location] = location
 							end

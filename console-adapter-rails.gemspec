@@ -7,11 +7,11 @@ Gem::Specification.new do |spec|
 	spec.version = Console::Adapter::Rails::VERSION
 	
 	spec.summary = "Adapt Rails logs and events to the console gem."
-	spec.authors = ["Samuel Williams", "Joshua Young", "Michael Adams"]
+	spec.authors = ["Samuel Williams", "Joshua Young", "Jun Jiang", "Michael Adams"]
 	spec.license = "MIT"
 	
-	spec.cert_chain  = ['release.cert']
-	spec.signing_key = File.expand_path('~/.gem/release.pem')
+	spec.cert_chain  = ["release.cert"]
+	spec.signing_key = File.expand_path("~/.gem/release.pem")
 	
 	spec.homepage = "https://github.com/socketry/console-adapter-rails"
 	
@@ -20,9 +20,9 @@ Gem::Specification.new do |spec|
 		"source_code_uri" => "https://github.com/socketry/console-adapter-rails.git",
 	}
 	
-	spec.files = Dir.glob(['{lib}/**/*', '*.md'], File::FNM_DOTMATCH, base: __dir__)
+	spec.files = Dir.glob(["{lib}/**/*", "*.md"], File::FNM_DOTMATCH, base: __dir__)
 	
-	spec.required_ruby_version = ">= 3.1"
+	spec.required_ruby_version = ">= 3.2"
 	
 	spec.add_dependency "console", "~> 1.21"
 	spec.add_dependency "fiber-storage", "~> 1.0"

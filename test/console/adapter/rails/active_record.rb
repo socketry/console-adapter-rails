@@ -4,9 +4,9 @@
 # Copyright, 2023-2024, by Samuel Williams.
 # Copyright, 2024, by Michael Adams.
 
-require 'app'
-require 'console/capture'
-require 'console/logger'
+require "app"
+require "console/capture"
+require "console/logger"
 
 describe Console::Adapter::Rails::ActiveRecord do
 	let(:capture) {Console::Capture.new}

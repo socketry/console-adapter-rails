@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
 # Released under the MIT License.
-# Copyright, 2023-2024, by Samuel Williams.
+# Copyright, 2023-2025, by Samuel Williams.
 
-require 'console'
+require "console"
 
-require 'active_support/log_subscriber'
-require 'active_record/log_subscriber'
+require "active_support/log_subscriber"
+require "active_record/log_subscriber"
 
 module Console
 	module Adapter

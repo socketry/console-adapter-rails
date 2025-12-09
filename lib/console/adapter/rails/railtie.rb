@@ -3,16 +3,17 @@
 # Released under the MIT License.
 # Copyright, 2024, by Michael Adams.
 # Copyright, 2024, by Samuel Williams.
+# Copyright, 2025, by Jun Jiang.
 
-require 'action_controller/log_subscriber'
-require 'action_view/log_subscriber'
+require "action_controller/log_subscriber"
+require "action_view/log_subscriber"
 
 module Console
 	module Adapter
 		module Rails
 			# Hook into Rails startup process and replace Rails.logger with our custom hooks
 			class Railtie < ::Rails::Railtie
-				initializer 'console.adapter.rails', before: :initialize_logger do |app|
+				initializer "console.adapter.rails", before: :initialize_logger do |app|
 					# 1. Set up Console to be used as the Rails logger
 					Logger.apply!(configuration: app.config)
 					

@@ -2,7 +2,8 @@
 
 # Released under the MIT License.
 # Copyright, 2023-2024, by Samuel Williams.
+# Copyright, 2025, by Jun Jiang.
 
-eval_gemfile('../gems.rb')
+eval_gemfile("../gems.rb")
 
-gem 'rails', '~> 8.0'
+gem "rails", "~> 8.0"

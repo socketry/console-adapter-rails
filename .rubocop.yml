@@ -1,5 +1,22 @@
+plugins:
+  - rubocop-md
+  - rubocop-socketry
+
 AllCops:
   DisabledByDefault: true
+
+# Socketry specific rules:
+
+Layout/ConsistentBlankLineIndentation:
+  Enabled: true
+
+Layout/BlockDelimiterSpacing:
+  Enabled: true
+
+Style/GlobalExceptionVariables:
+  Enabled: true
+
+# General Layout rules:
 
 Layout/IndentationStyle:
   Enabled: true
@@ -16,6 +33,9 @@ Layout/IndentationConsistency:
   Enabled: true
   EnforcedStyle: normal
 
+Layout/BlockAlignment:
+  Enabled: true
+
 Layout/EndAlignment:
   Enabled: true
   EnforcedStyleAlignWith: start_of_line
@@ -23,6 +43,9 @@ Layout/EndAlignment:
 Layout/BeginEndAlignment:
   Enabled: true
   EnforcedStyleAlignWith: start_of_line
+
+Layout/RescueEnsureAlignment:
+  Enabled: true
 
 Layout/ElseAlignment:
   Enabled: true
@@ -32,9 +55,14 @@ Layout/DefEndAlignment:
 
 Layout/CaseIndentation:
   Enabled: true
+  EnforcedStyle: end
 
 Layout/CommentIndentation:
   Enabled: true
+
+Layout/FirstHashElementIndentation:
+  Enabled: true
+  EnforcedStyle: consistent
 
 Layout/EmptyLinesAroundClassBody:
   Enabled: true
@@ -42,5 +70,21 @@ Layout/EmptyLinesAroundClassBody:
 Layout/EmptyLinesAroundModuleBody:
   Enabled: true
 
+Layout/EmptyLineAfterMagicComment:
+   Enabled: true
+
+Layout/SpaceInsideBlockBraces:
+  Enabled: true
+  EnforcedStyle: no_space
+  SpaceBeforeBlockParameters: false
+
+Layout/SpaceAroundBlockParameters:
+  Enabled: true
+  EnforcedStyleInsidePipes: no_space
+
 Style/FrozenStringLiteralComment:
   Enabled: true
+
+Style/StringLiterals:
+  Enabled: true
+  EnforcedStyle: double_quotes

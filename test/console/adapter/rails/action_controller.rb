@@ -3,9 +3,9 @@
 # Released under the MIT License.
 # Copyright, 2023, by Samuel Williams.
 
-require 'app'
-require 'console/capture'
-require 'console/logger'
+require "app"
+require "console/capture"
+require "console/logger"
 
 describe Console::Adapter::Rails::ActionController do
 	let(:capture) {Console::Capture.new}

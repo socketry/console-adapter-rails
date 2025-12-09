@@ -4,23 +4,23 @@
 # Copyright, 2023-2024, by Samuel Williams.
 # Copyright, 2024, by Michael Adams.
 
-require 'rails'
-require 'action_controller/railtie'
-require 'active_record'
+require "rails"
+require "action_controller/railtie"
+require "active_record"
 
-require 'console/compatible/logger'
-require_relative '../lib/console/adapter/rails'
+require "console/compatible/logger"
+require_relative "../lib/console/adapter/rails"
 
 class TestApplication < Rails::Application
 	config.root = __dir__
 	config.consider_all_requests_local = true
-	config.secret_key_base = 'not_so_secret'
+	config.secret_key_base = "not_so_secret"
 	config.hosts << "www.example.com"
 	config.eager_load = false
 	
 	routes.append do
-		root to: 'test#index'
-		get '/goodbye', to: 'test#goodbye'
+		root to: "test#index"
+		get "/goodbye", to: "test#goodbye"
 	end
 end
 
@@ -29,7 +29,7 @@ end
 
 class TestController < ActionController::Base
 	def index
-		render inline: 'Hi!'
+		render inline: "Hi!"
 	end
 	
 	def goodbye
@@ -58,8 +58,8 @@ TestApplication.initialize!
 
 # Set up a database that resides in memory:
 ActiveRecord::Base.establish_connection(
-	adapter: 'sqlite3',
-	database: 'test.db'
+	adapter: "sqlite3",
+	database: "test.db"
 )
 
 # Set up database tables and columns

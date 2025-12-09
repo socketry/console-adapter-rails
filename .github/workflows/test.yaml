@@ -5,12 +5,9 @@ on: [push, pull_request]
 permissions:
   contents: read
 
-env:
-  CONSOLE_OUTPUT: XTerm
-
 jobs:
   test:
-    name: ${{matrix.ruby}} on ${{matrix.os}} with ${{matrix.gemfile}}
+    name: ${{matrix.ruby}} on ${{matrix.os}}
     runs-on: ${{matrix.os}}-latest
     continue-on-error: ${{matrix.experimental}}
     
@@ -21,13 +18,10 @@ jobs:
           - macos
         
         ruby:
+          - "3.2"
           - "3.3"
           - "3.4"
         
-        gemfile:
-          - gems/rails-v7.rb
-          - gems/rails-v8.rb
-          
         experimental: [false]
         
         include:
@@ -40,9 +34,6 @@ jobs:
           - os: ubuntu
             ruby: head
             experimental: true
-    
-    env:
-      BUNDLE_GEMFILE: ${{matrix.gemfile}}
     
     steps:
     - uses: actions/checkout@v6

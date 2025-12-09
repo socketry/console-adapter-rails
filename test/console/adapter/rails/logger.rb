@@ -4,14 +4,14 @@
 # Copyright, 2023-2024, by Samuel Williams.
 # Copyright, 2024, by Michael Adams.
 
-require 'app'
-require 'console/capture'
-require 'console/logger'
+require "app"
+require "console/capture"
+require "console/logger"
 
 describe Console::Adapter::Rails::Logger do
 	let(:capture) {Console::Capture.new}
 	
-	with 'Rails.logger' do
+	with "Rails.logger" do
 		def before
 			super
 			Console.logger = Console::Logger.new(capture)
@@ -50,19 +50,19 @@ describe Console::Adapter::Rails::Logger do
 		end
 	end
 	
-	with '#silence' do
+	with "#silence" do
 		let(:logger) {subject.new(::Rails, capture)}
 		
 		it "behaves like Rails 6 logger" do
 			logger.silence(Logger::ERROR) do
 				logger.info("Hello World")
 			end
-
+			
 			expect(capture.last).to be_nil
 		end
 	end
 	
-	with '#local_level=' do
+	with "#local_level=" do
 		let(:logger) {subject.new(::Rails, capture)}
 		
 		it "behaves like Rails 7 logger" do
@@ -70,7 +70,7 @@ describe Console::Adapter::Rails::Logger do
 			expect(logger.local_level).to be == Logger::ERROR
 			logger.info("Hello World")
 			logger.local_level = nil
-
+			
 			expect(capture.last).to be_nil
 		end
 	end

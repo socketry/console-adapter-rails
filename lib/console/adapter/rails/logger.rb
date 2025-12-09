@@ -1,15 +1,15 @@
 # frozen_string_literal: true
 
 # Released under the MIT License.
-# Copyright, 2023-2024, by Samuel Williams.
+# Copyright, 2023-2025, by Samuel Williams.
 # Copyright, 2024, by Michael Adams.
 
-require 'console/compatible/logger'
+require "console/compatible/logger"
 
-require 'fiber/storage'
-require 'active_support/logger'
-require 'active_support/tagged_logging'
-require 'active_support/logger_silence'
+require "fiber/storage"
+require "active_support/logger"
+require "active_support/tagged_logging"
+require "active_support/logger_silence"
 
 if ActiveSupport::Logger.respond_to?(:logger_outputs_to?)
 	# https://github.com/rails/rails/issues/44800
