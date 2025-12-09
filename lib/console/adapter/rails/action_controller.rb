@@ -10,10 +10,10 @@ require 'action_controller/log_subscriber'
 
 module Console
 	module Adapter
-		# A Rails adapter for the console logger.
 		module Rails
+			# ActionController integration for Console logger. Provides log subscribers that convert Rails ActionController events into Console-compatible log messages.
 			module ActionController
-				# A Rails log subscriber which is compatible with `Console::Logger`. It receives events from `ActiveSupport::Notifications` and logs them to the console.
+				# Represents a Rails log subscriber which is compatible with `Console::Logger`. It receives events from `ActiveSupport::Notifications` and logs them to the console.
 				class LogSubscriber < ::ActiveSupport::LogSubscriber
 					# Log an ActionController `process_action` event.
 					#
@@ -60,6 +60,9 @@ module Console
 					end
 				end
 				
+				# Attach the log subscriber to ActionController events.
+				#
+				# @parameter notifications [ActiveSupport::Notifications] The notifications system to attach to.
 				def self.apply!(notifications: ActiveSupport::Notifications)
 					LogSubscriber.attach_to(:action_controller, LogSubscriber.new, notifications)
 				end

@@ -11,7 +11,9 @@ require 'active_record/log_subscriber'
 module Console
 	module Adapter
 		module Rails
+			# ActiveRecord integration for Console logger. Provides log subscribers that convert Rails ActiveRecord events into Console-compatible log messages.
 			module ActiveRecord
+				# Represents a Rails log subscriber which is compatible with `Console::Logger`. It receives SQL events from `ActiveSupport::Notifications` and logs them to the console.
 				class LogSubscriber < ::ActiveSupport::LogSubscriber
 					IGNORE_PAYLOAD_NAMES = ["SCHEMA", "EXPLAIN", "TRANSACTION"]
 					
@@ -62,6 +64,9 @@ module Console
 					end
 				end
 				
+				# Attach the log subscriber to ActiveRecord events.
+				#
+				# @parameter notifications [ActiveSupport::Notifications] The notifications system to attach to.
 				def self.apply!(notifications: ActiveSupport::Notifications)
 					LogSubscriber.attach_to(:active_record, LogSubscriber.new, notifications)
 				end
