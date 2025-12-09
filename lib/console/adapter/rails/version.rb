@@ -9,7 +9,7 @@ module Console
 	module Adapter
 		# @namespace
 		module Rails
-			VERSION = "0.5.0"
+			VERSION = "0.5.1"
 		end
 	end
 end
