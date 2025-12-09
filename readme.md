@@ -10,6 +10,14 @@ Please see the [project documentation](https://socketry.github.io/console-adapte
 
   - [Getting Started](https://socketry.github.io/console-adapter-rails/guides/getting-started/index) - This guide explains how to integrate the `console-adapter-rails` gem into your Rails application.
 
+## Releases
+
+Please see the [project releases](https://socketry.github.io/console-adapter-rails/releases/index) for all releases.
+
+### v0.5.0
+
+  - Improved compatibilty with Rails 8+.
+
 ## Contributing
 
 We welcome contributions to this project.
