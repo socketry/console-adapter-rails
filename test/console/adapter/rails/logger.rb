@@ -20,7 +20,29 @@ describe Console::Adapter::Rails::Logger do
 		it "should support tags" do
 			expect(Rails.logger).to be(:respond_to?, :tagged)
 		end
-		
+
+		it "should log tags that are Hashes" do
+			Rails.logger.tagged({ foo: "bar" }) do
+				Rails.logger.info("Hello World")
+			end
+
+			expect(capture.last).to have_keys(
+				message: be == "Hello World",
+				foo: be == "bar"
+			)
+		end
+
+		it "should not fail when logging string tags" do
+			Rails.logger.tagged("foo=bar") do
+				Rails.logger.info("Hello World")
+			end
+
+			expect(capture.last).to have_keys(
+				message: be == "Hello World"
+			)
+			expect(capture.last.keys).to be == %i[time severity subject arguments message]
+		end
+
 		it "should support silence" do
 			expect(Rails.logger).to be(:respond_to?, :silence)
 			

@@ -82,8 +82,14 @@ module Console
 				# @parameter progname [String | Nil] The program name.
 				def add(severity, message = nil, progname = nil, &block)
 					return if silenced?(severity)
-					
-					super(severity, message, progname, &block)
+
+					options = formatter&.tag_stack&.tags.to_a.each_with_object({}) do |tag, memo|
+						next unless tag.respond_to?(:to_hash)
+
+						memo.update(tag)
+					end
+
+					super(severity, message, progname, **options, &block)
 				end
 				
 				# Configure Rails to use the Console logger.
