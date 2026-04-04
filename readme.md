@@ -14,6 +14,10 @@ Please see the [project documentation](https://socketry.github.io/console-adapte
 
 Please see the [project releases](https://socketry.github.io/console-adapter-rails/releases/index) for all releases.
 
+### v0.6.0
+
+  - Add support for Rails tagged logging in the Rails logger adapter. This allows log messages with tags to be properly formatted and displayed.
+
 ### v0.5.0
 
   - Improved compatibilty with Rails 8+.

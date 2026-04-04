@@ -1,6 +1,6 @@
 # Releases
 
-## Unreleased
+## v0.6.0
 
   - Add support for Rails tagged logging in the Rails logger adapter. This allows log messages with tags to be properly formatted and displayed.
 
