@@ -2,7 +2,7 @@
 
 # Released under the MIT License.
 # Copyright, 2024, by Michael Adams.
-# Copyright, 2024, by Samuel Williams.
+# Copyright, 2024-2026, by Samuel Williams.
 # Copyright, 2025, by Jun Jiang.
 
 require "action_controller/log_subscriber"
