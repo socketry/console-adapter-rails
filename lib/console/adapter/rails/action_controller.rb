@@ -13,6 +13,22 @@ module Console
 		module Rails
 			# ActionController integration for Console logger. Provides log subscribers that convert Rails ActionController events into Console-compatible log messages.
 			module ActionController
+				@log_parameters = false
+				
+				# Whether filtered request parameters should be included in action controller logs.
+				#
+				# @returns [Boolean] Whether filtered request parameters are logged.
+				def self.log_parameters?
+					@log_parameters
+				end
+				
+				# Configure whether filtered request parameters should be included in action controller logs.
+				#
+				# @parameter value [Boolean] Whether filtered request parameters should be logged.
+				def self.log_parameters=(value)
+					@log_parameters = value
+				end
+				
 				# Represents a Rails log subscriber which is compatible with `Console::Logger`. It receives events from `ActiveSupport::Notifications` and logs them to the console.
 				class LogSubscriber < ::ActiveSupport::LogSubscriber
 					# Log an ActionController `process_action` event.
@@ -33,8 +49,8 @@ module Console
 					def process_action(event)
 						payload = event.payload.dup
 						
-						# This may contain sensitive information:
-						params = payload.delete(:params)
+						# This may contain sensitive information, but Rails applies configured parameter filters before emitting the event:
+						payload.delete(:params) unless ActionController.log_parameters?
 						
 						# These objects are not useful and may not serialize correctly:
 						headers = payload.delete(:headers)

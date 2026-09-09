@@ -32,6 +32,21 @@ describe Console::Adapter::Rails::ActionController do
 			duration: be_a(Float),
 			source_address: be == "127.0.0.1",
 		)
+		expect(capture.last).not.to have_keys(:params)
+	end
+	
+	it "can include filtered request parameters" do
+		Console::Adapter::Rails::ActionController.log_parameters = true
+		
+		begin
+			session.get "/", params: {name: "Jane", password: "secret"}
+			
+			params = capture.last[:params]
+			expect(params["name"]).to be == "Jane"
+			expect(params["password"]).to be == "[FILTERED]"
+		ensure
+			Console::Adapter::Rails::ActionController.log_parameters = false
+		end
 	end
 	
 	it "can generate test controller logs with redirects" do
