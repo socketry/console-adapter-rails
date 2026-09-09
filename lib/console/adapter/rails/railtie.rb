@@ -13,6 +13,18 @@ module Console
 		module Rails
 			# Hook into Rails startup process and replace Rails.logger with our custom hooks
 			class Railtie < ::Rails::Railtie
+				# Detach a Rails log subscriber using the API appropriate for its implementation.
+				#
+				# @parameter subscriber [Class] The log subscriber class to detach.
+				# @parameter namespace [Symbol] The notification namespace the subscriber is attached to.
+				def self.detach_log_subscriber(subscriber, namespace)
+					if subscriber < ::ActiveSupport::LogSubscriber
+						subscriber.detach_from(namespace)
+					else
+						::ActiveSupport.event_reporter.unsubscribe(subscriber)
+					end
+				end
+				
 				initializer "console.adapter.rails", before: :initialize_logger do |app|
 					# 1. Set up Console to be used as the Rails logger
 					Logger.apply!(configuration: app.config)
@@ -23,18 +35,10 @@ module Console
 				
 				# 3. Remove existing log subscribers for ActionController and ActionView
 				config.after_initialize do
-					if ::ActionController::LogSubscriber < ::ActiveSupport::LogSubscriber
-						::ActionController::LogSubscriber.detach_from :action_controller
-					else
-						::ActiveSupport.event_reporter.unsubscribe(::ActionController::LogSubscriber)
-					end
+					detach_log_subscriber(::ActionController::LogSubscriber, :action_controller)
 					
 					# Silence the default action view logs, e.g. "Rendering text template" etc
-					if ::ActionView::LogSubscriber < ::ActiveSupport::LogSubscriber
-						::ActionView::LogSubscriber.detach_from :action_view
-					else
-						::ActiveSupport.event_reporter.unsubscribe(::ActionView::LogSubscriber)
-					end
+					detach_log_subscriber(::ActionView::LogSubscriber, :action_view)
 				end
 				
 				config.after_initialize do
