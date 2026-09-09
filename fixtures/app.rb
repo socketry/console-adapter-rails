@@ -17,6 +17,7 @@ class TestApplication < Rails::Application
 	config.secret_key_base = "not_so_secret"
 	config.hosts << "www.example.com"
 	config.eager_load = false
+	config.filter_parameters += [:password]
 	
 	routes.append do
 		root to: "test#index"
