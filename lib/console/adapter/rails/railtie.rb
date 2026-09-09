@@ -25,12 +25,12 @@ module Console
 					end
 				end
 				
+				# 1. Remove the Rails::Rack::Logger middleware as it also doubles up on request logs
+				config.app_middleware.delete ::Rails::Rack::Logger
+				
 				initializer "console.adapter.rails", before: :initialize_logger do |app|
-					# 1. Set up Console to be used as the Rails logger
+					# 2. Set up Console to be used as the Rails logger
 					Logger.apply!(configuration: app.config)
-					
-					# 2. Remove the Rails::Rack::Logger middleware as it also doubles up on request logs
-					app.middleware.delete ::Rails::Rack::Logger
 				end
 				
 				# 3. Remove existing log subscribers for ActionController and ActionView
