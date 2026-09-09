@@ -16,19 +16,19 @@ group :maintenance, optional: true do
 	gem "agent-context"
 	
 	gem "utopia-project"
+	
+	gem "decode"
 end
 
 group :test do
 	gem "sus"
 	gem "covered"
-	gem "decode"
 	
 	gem "rubocop"
 	gem "rubocop-md"
 	gem "rubocop-socketry"
 	
 	gem "bake-test"
-	gem "bake-test-external"
 	
 	gem "sqlite3", ">= 1.4"
 end

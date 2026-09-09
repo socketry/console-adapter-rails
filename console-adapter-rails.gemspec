@@ -16,6 +16,8 @@ Gem::Specification.new do |spec|
 	spec.homepage = "https://github.com/socketry/console-adapter-rails"
 	
 	spec.metadata = {
+		"bug_tracker_uri" => "https://github.com/socketry/console-adapter-rails/issues",
+		"changelog_uri" => "https://github.com/socketry/console-adapter-rails/blob/main/releases.md",
 		"documentation_uri" => "https://socketry.github.io/console-adapter-rails/",
 		"source_code_uri" => "https://github.com/socketry/console-adapter-rails.git",
 	}
