@@ -47,6 +47,7 @@ module Console
 					def update_binds(payload)
 						binds = payload.delete(:binds)
 						type_casted_binds = payload.delete(:type_casted_binds)
+						type_casted_binds = type_casted_binds.call if type_casted_binds.respond_to?(:call)
 						
 						if binds&.any? and type_casted_binds
 							payload[:binds] = binds.map.with_index do |attribute, index|

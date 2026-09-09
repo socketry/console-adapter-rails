@@ -90,4 +90,26 @@ describe Console::Adapter::Rails::ActiveRecord do
 		expect(binds[0]).to be == ["name", "ActiveModel::Type::String"]
 		expect(binds[1]).to be == ["password", "ActiveModel::Type::String"]
 	end
+	
+	it "supports deferred type-casted binds" do
+		attribute = Struct.new(:name, :type).new("id", ActiveModel::Type::Integer.new)
+		event = Struct.new(:name, :payload, :allocations, :duration).new(
+			"sql.active_record",
+			{
+				name: "Post Load",
+				sql: "SELECT * FROM posts WHERE id = ?",
+				binds: [attribute],
+				type_casted_binds: ->{[1]},
+			},
+			0,
+			0.1,
+		)
+		
+		Console::Adapter::Rails::ActiveRecord::LogSubscriber.new.sql(event)
+		
+		expect(capture.last).to have_keys(
+			subject: be == "sql.active_record",
+			binds: be == [["id", 1]],
+		)
+	end
 end
